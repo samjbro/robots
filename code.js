@@ -1,3 +1,8 @@
+// CODE FOR TESTING PROTOTYPES OF AS-YET-UNTITLED BOARD/CARD GAMES
+// Documentation for game: https://www.notion.so/cookywook/Robot-Game-name-TBD-0afeed4bff7347278587f2702316dfc4
+
+
+
 // defining the bots
 var robot_1 = {
 	name:"Robot 1",
@@ -12,7 +17,6 @@ var robot_2 = {
 }
 
 var robots = [robot_1, robot_2];
-var opponent = 1;
 
 // get a random current robot
 var current_robot = robots[Math.floor(Math.random() * robots.length)];
@@ -48,19 +52,19 @@ function attack(){
 // repair heals 1 damage to the current bot
 function repair(){
 	if (current_robot == robot_1){
-  	// robot_1.health++;
-   console.log('Robot 1 attacks!')
+  robot_1.health++;
+   console.log('Robot 1 repairs!')
  	}
   else {
-  	// robot_2.health++;
-   console.log('Robot 2 attacks!')
+   robot_2.health++;
+   console.log('Robot 2 repairs!')
   }
 }
 
-function shuffle(){
-	robot_1.deck = [attack,attack,attack,attack];
-	robot_2.deck = [attack,attack,attack,attack];
-	console.log('randomising!');
+function shuffle(x){
+	robot_1.deck = [attack,attack,attack,attack,repair];
+	robot_2.deck = [attack,attack,attack,attack,repair];
+	console.log('Shuffling cards!');
 	//randomising code...
 	robot_1.deck.sort(function(a, b){return 0.5 - Math.random()});
 	robot_2.deck.sort(function(a, b){return 0.5 - Math.random()});
@@ -70,10 +74,10 @@ function shuffle(){
 
 // CHOOSE: pick an ACTION from deck
 function choose(x){
-	console.log("@@@" + " " + x.name + " " + "choosing!");
+	console.log(x.name + " " + "draws a card...");
 	x.deck[0]();
 	x.deck.shift();
-	console.log("remaining cards" + " " + x.deck.length);
+	console.log("(remaining cards" + " " + x.deck.length + ")");
 }
 
 
@@ -85,8 +89,9 @@ console.log("Robot 2 starting health:" + " " + robot_2.health);
 
 // RESETs health at the start of each game
 function reset(){
-	shuffle(robot_1);
-	shuffle(robot_2);
+	// shuffle(robot_1);
+	// shuffle(robot_2);
+	shuffle();
 	if (round = 1){
 		robot_2.health = 10;
 		robot_1.health = 10;
@@ -98,8 +103,8 @@ function reset(){
 
 // SHUFFLE CHECK - checks to see if the deck needs a SHUFFLE
 function shuffleCheck(a){
-	console.log("robot 1 deck=" + " " + robot_1.deck.length);
-	console.log("robot 2 deck=" + " " + robot_2.deck.length);
+	// console.log("robot 1 deck=" + " " + robot_1.deck.length);
+	// console.log("robot 2 deck=" + " " + robot_2.deck.length);
 	if(a.length == 0){
 	 	console.log("SHUFFLING DECK!!!" + " " + "for" + " " + current_robot.name);
 	shuffle(a);
@@ -121,7 +126,7 @@ function pickWinner(){
 
 //PLAY
 function play(){
-	var round = 1;
+	// var round = 1;
 	for (var round = 1; round < 100; round++){
 	console.log("***************Round" + " " + round + "******************");
 	// choose active bot
